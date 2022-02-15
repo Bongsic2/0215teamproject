@@ -16,7 +16,8 @@ public class gameUserList {
 				gameUserName.add(token);
 			}
 		}
-		System.out.println(gameUserName.toString());
+		//System.out.println(gameUserName.toString());
+		
 	}
 
 }

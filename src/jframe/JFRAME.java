@@ -20,10 +20,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import clientChat.gameClient;
+import clientChat.gameClientReadMsg;
 import music.MusicInfo;
+import view.MainFrame;
 import view.buttonsGUI.MultiGameButtons;
 import view.sounds.MusicBackGround;
 
@@ -151,9 +152,27 @@ public class JFRAME extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				System.exit(0);
+				// 클릭시 게임 싱글,멀티 고르는 창으로 이동
+				// System.exit(0);
+				// 서버로 raedcount초기화 명령 
+				resetList();
+				//gameClientReadMsg.serverSongRandom.clear();
+				//gameClientReadMsg.interrupted();
+				try {
+					new ThreadExit();
+				} catch (Exception e1) {
+				
+					e1.printStackTrace();
+				}
+				dispose();
+				new MainFrame();								
+				//MainFrame.introMusic.start();
 			}
-
+			public void resetList() {
+				introMusic.interrupt();
+				list.clear();
+				SongSinger.clear();
+			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				endBtn.setIcon(QuitBtnMouseOver);
@@ -214,7 +233,7 @@ public class JFRAME extends JFrame {
 		jlist.setOpaque(true);
 		jlist.setBackground(new Color(0, 0, 0, 100));
 
-		jlist.setBounds(800, 255, 460, 340);
+		jlist.setBounds(800, 310, 460, 300);
 
 		jlist.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

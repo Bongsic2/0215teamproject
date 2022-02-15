@@ -9,15 +9,16 @@ public class gameUser {
 	private BufferedReader br;
 	private BufferedWriter bw;
 	private int score = 0;
-		
-	public gameUser() {	}
-	
+
+	public gameUser() {
+	}
+
 	public gameUser(Socket socket, BufferedReader br, BufferedWriter bw) {
 		this.socket = socket;
 		this.br = br;
 		this.bw = bw;
 	}
-	
+
 //	public gameUser(int score) {
 //		this.score = score;
 //	}
@@ -25,10 +26,14 @@ public class gameUser {
 	public int getScore() {
 		return score;
 	}
-	
+
 	public void setScore(int score) {
 		this.score += score;
 		System.out.println(this.score); // 점수확인용
+	}
+	
+	public void resetScore() {
+		this.score = 0;
 	}
 
 	public Socket getSocket() {
@@ -42,7 +47,5 @@ public class gameUser {
 	public BufferedWriter getBw() {
 		return bw;
 	}
-	
-	
-	
+
 }

@@ -7,7 +7,7 @@ public class songRandom {
 	String randomNum;
 	public songRandom() {
 		while (songRandomIntList.size() != 10) {
-			int i = songRandomIntList.size();
+			
 			int randomInt = (int) (Math.random() * 30);
 			String stringNum = Integer.toString(randomInt); // 문자열로
 			if (!songRandomIntList.contains(stringNum)) { // 중복제거
@@ -22,6 +22,8 @@ public class songRandom {
 		}
 		randomNum = randomNum+"\n";
 		new broadcast(randomNum);
+		songRandomIntList.clear();
+		
 	}
 
 }

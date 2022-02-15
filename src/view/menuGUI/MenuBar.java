@@ -11,15 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import main.Main;
-import view.MainFrame;
-import view.buttonsGUI.SingleGameButtons;
-import view.countGUI.NextCount;
 import view.sounds.MusicBackGround;
 
-public class MenuBar extends JFrame{
-	
+public class MenuBar extends JFrame {
+
 	public static int mouseX, mouseY;
-	
+
 	public static void GameMenubar(JFrame jframe) {
 		ImageIcon ExitBtn = new ImageIcon(Main.class.getResource("/view/menuGUI/ExitButton.png"));
 		ImageIcon ExitBtnMouseOver = new ImageIcon(Main.class.getResource("/view/menuGUI/ExitButtonMouseOver.png"));
@@ -40,7 +37,9 @@ public class MenuBar extends JFrame{
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				jframe.dispose();
+				//jframe.dispose();
+				
+				jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
 			}
 
 			@Override
@@ -75,14 +74,13 @@ public class MenuBar extends JFrame{
 		});
 		jframe.add(menuBar);
 	}
-	
-	
+
 	public static void MainMenuBar(JFrame jframe) {
 		ImageIcon ExitBtn = new ImageIcon(Main.class.getResource("/view/menuGUI/ExitButton.png"));
 		ImageIcon ExitBtnMouseOver = new ImageIcon(Main.class.getResource("/view/menuGUI/ExitButtonMouseOver.png"));
 		JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("/view/menuGUI/MenuBar.png")));
 		JButton exitButton = new JButton(ExitBtn);
-		
+
 		exitButton.setBounds(1245, 0, 30, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);

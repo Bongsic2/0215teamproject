@@ -10,7 +10,8 @@ public class userNames extends Thread {
 	public static ArrayList<String> gameUserName;
 	JLabel ch1Name, ch2Name, ch3Name, ch4Name;
 	String player1, player2, player3, player4;
-
+	public static boolean flag; 
+	
 	public userNames(JLabel ch1Name, JLabel ch2Name, JLabel ch3Name, JLabel ch4Name) {
 		this.ch1Name = ch1Name;
 		this.ch2Name = ch2Name;
@@ -21,7 +22,8 @@ public class userNames extends Thread {
 	
 	@Override
 	public void run() {
-		while(true) {
+		flag = true;
+		while(flag) {
 			gameUserName = gameUserList.gameUserName;
 			
 			switch(gameUserName.size()) {

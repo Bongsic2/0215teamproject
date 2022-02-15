@@ -26,18 +26,24 @@ public class MainFrame extends JFrame {
 	private Graphics screenGraphic;
 	private Image background = new ImageIcon(Main.class.getResource("/view/introBackground.jpg")).getImage();
 	// 메인 배경음
-	public static MusicBackGround introMusic = new MusicBackGround("/view/sounds/introMusic.mp3", true);
+	public static MusicBackGround introMusic;
+	// = new MusicBackGround("/view/sounds/introMusic.mp3", true);
+	public static JFrame maF;
 
 	public MainFrame() {
 		Default.DefaultFrame(this, 1280, 700); // 프레임 디폴트
 		MenuBar.MainMenuBar(this); // 상단 메뉴바 추가 메소드
 
+		introMusic = new MusicBackGround("/view/sounds/introMusic.mp3", true);
 		// 배경음악 재생
-		introMusic.start();
-		
+		// introMusic.start();
+		if (introMusic.getState() == Thread.State.NEW) {
+			introMusic.start();
+		}
+
 		// 메인 버튼 추가 메소드
 		MainButtons.AddMainButtons(this);
-		
+
 	}
 
 	public void paint(Graphics g) {

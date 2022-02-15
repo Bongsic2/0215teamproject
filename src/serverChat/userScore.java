@@ -14,8 +14,10 @@ public class userScore {
 			String key = keys.next();
 			String keyScore = String.valueOf(user.get(key).getScore());
 			score = score + "-" + key + "-" + keyScore;
+			user.get(key).resetScore();
 		}
 		
 		new broadcast(score+"\n");
+		
 	}
 }

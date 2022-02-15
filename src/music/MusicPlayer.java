@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 
 import clientChat.gameClientReadMsg;
 import jframe.JFRAME;
+import view.buttonsGUI.MultiGameButtons;
 
 public class MusicPlayer extends Thread {
 	public static String musicjsonpath = "src\\music\\song_json_data.json";
@@ -42,7 +43,6 @@ public class MusicPlayer extends Thread {
 		flagIf = true;
 
 		int index = 0;
-
 		while (index < 10) {
 
 			try {
@@ -65,6 +65,7 @@ public class MusicPlayer extends Thread {
 			}
 
 		}
+		index = 0;
 		while (true) {
 			try {
 				Thread.sleep(100);
@@ -76,6 +77,8 @@ public class MusicPlayer extends Thread {
 				// gameClientReadMsg에서 clear 호출시 실행되도록 변경
 
 				// 숫자 10개 돌면 게임 끝
+				
+				MultiGameButtons.a.dispose();
 				new JFRAME(playList);
 				System.out.println("게임 끝");
 				break;
