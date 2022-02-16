@@ -11,22 +11,32 @@ import jframe.JFRAME;
 import music.MusicPlayer;
 import view.buttonsGUI.MultiGameButtons;
 
-public class gameClientReadMsg extends Thread {
+public class gameClientReadMsg extends Thread implements GameInterface {
 	Socket socket = gameClient.getSocket();
 	BufferedReader br;
 	MusicPlayer musicPlayer;
 	public static ArrayList<Integer> serverSongRandom;
+	public static boolean flag = true;
 	StringTokenizer StringTZ;
-
+	
+//	public static void setFlag(boolean flag) {
+//		gameClientReadMsg.flag = flag;
+//	}
 
 	public gameClientReadMsg(BufferedReader br) {
 		this.br = br;
 		start();
 	}
+	
+	public void kill_self(){
+		synchronized (this) {
+			this.stop();
+		}
+	}
 
 	@Override
 	public void run() {
-		while (true) {
+		while (flag) {
 			try {
 				String serverMsg = br.readLine();
 				String subStr = serverMsg.substring(serverMsg.length()-1);

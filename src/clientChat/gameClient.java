@@ -1,6 +1,9 @@
 package clientChat;
 
 import java.io.BufferedReader;
+
+import static main.R.*;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,10 +23,19 @@ public class gameClient {
 		return bw;
 	}
 	
+	public static BufferedReader getBr() {
+		return br;
+	}
+
+	public static void setBr(BufferedReader br) {
+		gameClient.br = br;
+	}
+
 	public static Socket getSocket() {
 		return socket;
 	}
 
+	
 	private String serverIp = "192.168.100.115";
 	
 //	private MusicPlayer musicPlayer = new MusicPlayer();
@@ -49,7 +61,7 @@ public class gameClient {
 			bw.flush();
 			
 			//메세지를 받는다
-			new gameClientReadMsg(br);
+			threadList.add(new gameClientReadMsg(br));
 
 			//메세지를 입력한다
 //			new gameClientWriteMsg(bw);

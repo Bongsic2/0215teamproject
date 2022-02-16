@@ -10,11 +10,17 @@ import javax.sound.sampled.Clip;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import clientChat.GameInterface;
 import clientChat.gameClientReadMsg;
 import jframe.JFRAME;
 import view.buttonsGUI.MultiGameButtons;
 
-public class MusicPlayer extends Thread {
+public class MusicPlayer extends Thread implements GameInterface{
+	public void kill_self(){
+		synchronized (this) {
+			this.stop();
+		}
+	}
 	public static String musicjsonpath = "src\\music\\song_json_data.json";
 	MusicInfo musicPath;
 	ArrayList<MusicInfo> listInfo = new ArrayList<>();
@@ -24,7 +30,7 @@ public class MusicPlayer extends Thread {
 	public int num = 0;
 	private boolean flagIf;
 	private boolean flagClear = false;
-
+	public static boolean runflag = true;
 	public MusicPlayer() {
 		listInfo = initializeMusic();
 		start();
@@ -40,6 +46,7 @@ public class MusicPlayer extends Thread {
 
 	@Override
 	public void run() {
+		runflag = true;
 		flagIf = true;
 
 		int index = 0;
@@ -66,9 +73,9 @@ public class MusicPlayer extends Thread {
 
 		}
 		index = 0;
-		while (true) {
+		while (runflag) {
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -79,7 +86,7 @@ public class MusicPlayer extends Thread {
 				// 숫자 10개 돌면 게임 끝
 				
 				MultiGameButtons.a.dispose();
-				new JFRAME(playList);
+				new  JFRAME(playList);
 				System.out.println("게임 끝");
 				break;
 			}

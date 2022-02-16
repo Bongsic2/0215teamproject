@@ -1,5 +1,7 @@
 package jframe;
 
+import static main.R.threadList;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -12,6 +14,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -22,7 +26,8 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 
 import clientChat.gameClient;
-import clientChat.gameClientReadMsg;
+import clientChat.gameUserList;
+import clientChat.scoreAll;
 import music.MusicInfo;
 import view.MainFrame;
 import view.buttonsGUI.MultiGameButtons;
@@ -45,7 +50,10 @@ public class JFRAME extends JFrame {
 
 	public static MusicBackGround introMusic = new MusicBackGround("/view/sounds/introMusic.mp3", true);
 	public static List<String> SongSinger = new ArrayList<String>();
+	public static List<String> userlist = new ArrayList<String>();
 	public static String uri[] = new String[10];
+	public static HashMap<String, Integer> uScore;
+
 	// private JFrame frame;
 	private ArrayList<MusicInfo> list;
 	ImageIcon QuitBtn = new ImageIcon("../LineNo5_mh/src/view/buttonsGUI/QuitBtn1.png");
@@ -62,7 +70,26 @@ public class JFRAME extends JFrame {
 		MultiGameButtons.setReadChatting("");
 		introMusic.start();
 		getList();
+		getuserScore();
+		getuserlist();
 		initialize();
+	}
+
+	public void getuserScore() {
+		uScore = scoreAll.userScore;
+		Iterator<String> iterator = uScore.keySet().iterator();
+		while(iterator.hasNext()) {
+			String key = iterator.next();
+			System.out.println(String.format("이름 : %s,  점수 : %d", key,uScore.get(key)));
+			
+		}
+		
+	}
+
+	public void getuserlist() {
+		for (int i = 0; i < gameUserList.gameUserName.size(); i++) {
+			userlist.add(gameUserList.gameUserName.get(i));
+		}
 	}
 
 	public void getList() {
@@ -154,25 +181,33 @@ public class JFRAME extends JFrame {
 				}
 				// 클릭시 게임 싱글,멀티 고르는 창으로 이동
 				// System.exit(0);
-				// 서버로 raedcount초기화 명령 
+				// 서버로 raedcount초기화 명령
+				// gameClientReadMsg.serverSongRandom.clear();
+				// gameClientReadMsg.interrupted();
 				resetList();
-				//gameClientReadMsg.serverSongRandom.clear();
-				//gameClientReadMsg.interrupted();
 				try {
 					new ThreadExit();
 				} catch (Exception e1) {
-				
+
 					e1.printStackTrace();
 				}
 				dispose();
-				new MainFrame();								
-				//MainFrame.introMusic.start();
+
+				while (threadList.size() > 0) {
+					threadList.get(0).kill_self();
+					threadList.remove(0);
+				}
+
+				new MainFrame();
+				// MainFrame.introMusic.start();
 			}
+
 			public void resetList() {
 				introMusic.interrupt();
 				list.clear();
 				SongSinger.clear();
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				endBtn.setIcon(QuitBtnMouseOver);
@@ -222,7 +257,11 @@ public class JFRAME extends JFrame {
 		label4.setBounds(130, 210, 265, 50);
 		add(label4);
 		// --- 결과 창에 USER 목록 나타내기 -------
-		JList userList = new JList();
+		JList userList = new JList(userlist.toArray());
+		userList.setFont(new Font("굴림", Font.PLAIN, 20));
+		userList.setForeground(Color.white);
+		userList.setOpaque(true);
+		userList.setBackground(new Color(0, 0, 0, 100));
 		userList.setBounds(850, 50, 400, 210);
 		add(userList);
 

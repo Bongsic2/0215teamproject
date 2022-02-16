@@ -21,11 +21,12 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import clientChat.GameInterface;
 import clientChat.gameClient;
 import music.MusicInfo;
 import view.sounds.MusicBackGround;
 
-public class JFRAME_test extends JFrame {
+public class JFRAME_test extends JFrame{
 	private JFrame frame;
 	private static String answer;
 	private static BufferedWriter bw = gameClient.getBw();
@@ -38,9 +39,9 @@ public class JFRAME_test extends JFrame {
 	ImageIcon waitingRoomBtnMouserOver = new ImageIcon("../LineNo5_mh/src/view/buttonsGUI/waintRoomMouse11.png");
 	public static MusicBackGround introMusic = new MusicBackGround("/view/sounds/introMusic.mp3", true);
 	ArrayList<MusicInfo> list;
-	//public static String a[] = new String[10];
+	// public static String a[] = new String[10];
 	public static String b[] = new String[10];
-	//public static ArrayList<String> a = new ArrayList<String>();
+	// public static ArrayList<String> a = new ArrayList<String>();
 	public static List<String> a = new ArrayList<String>();
 
 	public JFRAME_test() {
@@ -52,14 +53,14 @@ public class JFRAME_test extends JFrame {
 		introMusic.start();
 		getList();
 		initialize();
-		
+
 		// System.out.println(list.toString());
 	}
 
 	public void getList() {
 		for (int i = 0; i < list.size(); i++) {
-			 a.add(list.get(i).getSong() + " - " + list.get(i).getSinger());
-			//a[i] = list.get(i).getSong() + "    -    " + list.get(i).getSinger();
+			a.add(list.get(i).getSong() + " - " + list.get(i).getSinger());
+			// a[i] = list.get(i).getSong() + " - " + list.get(i).getSinger();
 			b[i] = list.get(i).getUrl();
 
 		}
@@ -209,8 +210,6 @@ public class JFRAME_test extends JFrame {
 			}
 		});
 
-
-
 		// --------- 텍스트 필드 ---------------
 		JTextField Enter = new JTextField("", 10);
 		Enter.setBounds(450, 600, 300, 81);
@@ -264,4 +263,5 @@ public class JFRAME_test extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
 }

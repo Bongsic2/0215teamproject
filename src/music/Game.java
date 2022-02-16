@@ -4,10 +4,18 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import clientChat.GameInterface;
 import clientChat.gameClient;
 import view.buttonsGUI.MultiGameButtons;
 
-public class Game extends Thread {
+public class Game extends Thread implements GameInterface {
+	
+	public void kill_self(){
+		synchronized (this) {
+			this.stop();
+		}
+	}
+	
 	private static BufferedWriter bw = gameClient.getBw();
 	MusicInfo musicInfo;
 	String songInfo, answer;

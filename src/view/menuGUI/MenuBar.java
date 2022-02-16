@@ -4,12 +4,15 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import clientChat.gameClient;
+import clientChat.gameClientReadMsg;
 import main.Main;
 import view.sounds.MusicBackGround;
 
@@ -22,7 +25,7 @@ public class MenuBar extends JFrame {
 		ImageIcon ExitBtnMouseOver = new ImageIcon(Main.class.getResource("/view/menuGUI/ExitButtonMouseOver.png"));
 		JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("/view/menuGUI/MenuBar.png")));
 		JButton exitButton = new JButton(ExitBtn);
-		
+
 		exitButton.setBounds(1160, 0, 30, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
@@ -37,9 +40,22 @@ public class MenuBar extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				//jframe.dispose();
-				
-				jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
+				// jframe.dispose();
+				// System.exit(1);
+				// jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
+				jframe.dispose();
+				if (gameClient.getSocket() != null) {
+					try {
+						//gameClientReadMsg.interrupted();
+						//gameClientReadMsg.flag = false;
+						Thread.sleep(1000);
+						gameClient.getBr().close();
+						gameClient.getBw().close();
+						gameClient.getSocket().close();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 
 			@Override

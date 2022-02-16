@@ -4,9 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import music.MusicPlayer;
+import clientChat.GameInterface;
 
-public class inputMsg extends Thread {
+public class inputMsg extends Thread implements GameInterface {
+	public void kill_self() {
+		synchronized (this) {
+			this.stop();
+		}
+	}
+
 	private final String next = "next"; // 정답을 맞췄을 시 발송해주는 암호
 	private final String sendMsg = "/to"; // 귓속말 명령어
 	private HashMap<String, gameUser> user = gameServer.getUser();
